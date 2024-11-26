@@ -45,12 +45,19 @@ export class UsuarioService {
     }
   }
 
-  findAll() {
-    return `This action returns all usuario`;
+  async findAll() {
+    const usuarios = await this.prisma.usuarios.findMany()
+    return usuarios;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+  async findOne(email: string) {
+    console.log(email)
+    const usuario = await this.prisma.usuarios.findUnique({
+      where:{
+        email
+      },
+    }) 
+    return usuario;
   }
 
   async findEmail(email:string){
